@@ -55,27 +55,31 @@ const Login = (props) => {
   // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-  // Menggunakan useEffect
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     console.log('Checking validity!');
-  //     setFormIsValid(
-  //     enteredEmail.includes('@') && enteredPassword.trim().length > 6
-  //   );}, 500);
-
-  //   return () => {
-  //     clearTimeout(identifier);
-  //   }
-  // }, [enteredEmail, enteredPassword]);
-
   const [emailState, dispatchEmail] = useReducer(emailReducer, {value: '', isValid: null});
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, {value: '', isValid: null});
+
+  // Melakukan destructuring serta alias 
+  const { isValid: emailIsValid } = emailState;
+  const {isValid: passwordIsValid } = passwordIsValid;
+
+   // Menggunakan useEffect
+   useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log('Checking validity!');
+      setFormIsValid(
+        emailIsValid && passwordIsValid
+    );}, 500);
+
+    return () => {
+      clearTimeout(identifier);
+    }
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({type: 'USER_INPUT', val: event.target.value});
 
     setFormIsValid(
-      event.target.value.includes('@') && passwordState.value.trim().length > 6
+      event.target.value.includes('@') && passwordState.isValid
     );
   };
 
