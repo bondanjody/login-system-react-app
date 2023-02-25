@@ -60,7 +60,7 @@ const Login = (props) => {
 
   // Melakukan destructuring serta alias 
   const { isValid: emailIsValid } = emailState;
-  const {isValid: passwordIsValid } = passwordIsValid;
+  const {isValid: passwordIsValid } = passwordState;
 
    // Menggunakan useEffect
    useEffect(() => {
